@@ -12,7 +12,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team5119.robot.commands.CanYouDoItMartin;
+import org.usfirst.frc.team5119.robot.commands.DriveUntil;
 import org.usfirst.frc.team5119.robot.commands.ExampleCommand;
+import org.usfirst.frc.team5119.robot.commands.TimedDrive;
 import org.usfirst.frc.team5119.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5119.robot.subsystems.ExampleSubsystem;
 
@@ -71,6 +75,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = new CanYouDoItMartin();
+		//m_autonomousCommand = new DriveUntil<DriveSubsystem>(.25,0,d -> d.getEncoderCount() > 4, Robot.driveSubsystem);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

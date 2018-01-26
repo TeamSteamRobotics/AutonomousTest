@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5119.robot.subsystems;
 
+import org.usfirst.frc.team5119.robot.commands.Drive;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -27,11 +29,14 @@ public class DriveSubsystem extends Subsystem {
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new Drive());
     }
     
     public void driveRobot(double fwd, double turn) {
     	drive.arcadeDrive(fwd, turn, false);
+    }
+    public int getEncoderCount() {
+    	return 5;
     }
 }
 
