@@ -29,6 +29,7 @@ public class DriveSubsystem extends Subsystem {
 	public DriveSubsystem() {
 		/* quadrature */
 		frontRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0); // PIDLoop=0, timeoutMs=0
+		frontRight.getSelectedSensorVelocity(0);
 		//frontRight.setInverted(true);
 		//backRight.setInverted(true);
 		

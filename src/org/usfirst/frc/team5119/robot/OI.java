@@ -7,7 +7,11 @@
 
 package org.usfirst.frc.team5119.robot;
 
+import org.usfirst.frc.team5119.robot.commands.MoveMast;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -20,6 +24,8 @@ public class OI {
 	// You create one by telling it which joystick it's on and which button
 	// number it is.
 	public Joystick stick = new Joystick(0);
+	protected JoystickButton moveMastDownButton = new JoystickButton(stick, 3);
+	protected JoystickButton moveMastUpButton = new JoystickButton(stick, 5);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	// There are a few additional built in buttons you can use. Additionally,
@@ -30,7 +36,8 @@ public class OI {
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
 	public OI() {
-		
+		moveMastUpButton.whileHeld(new MoveMast(.25));
+		moveMastDownButton.whileHeld(new MoveMast(-.25));
 	}
 	// Start the command when the button is pressed and let it run the command
 	// until it is finished as determined by it's isFinished method.
