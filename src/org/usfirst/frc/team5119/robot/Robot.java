@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team5119.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -19,6 +20,8 @@ import org.usfirst.frc.team5119.robot.commands.ExampleCommand;
 import org.usfirst.frc.team5119.robot.commands.TimedDrive;
 import org.usfirst.frc.team5119.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5119.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team5119.robot.subsystems.GyroSubsystem;
+import org.usfirst.frc.team5119.robot.subsystems.MastSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,10 +32,15 @@ import org.usfirst.frc.team5119.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends TimedRobot {
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
+	public static final GyroSubsystem gyroSubsystem = new GyroSubsystem();
+	public static final MastSubsystem mastSubsystem = new MastSubsystem();
 	public static OI m_oi;
+	
+	//public static DebugPusher debug = new DebugPusher(5);
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	CameraServer camera;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -44,6 +52,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		camera = CameraServer.getInstance();
+		camera.startAutomaticCapture();
 	}
 
 	/**
@@ -116,6 +126,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		//debug.update();
+		//debug.push("pitch", gyroSubsystem.getPitch());
 	}
 
 	/**

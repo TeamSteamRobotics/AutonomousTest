@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class CanYouDoItMartin extends CommandGroup {
+	
+	//this code seems to make it turn at a near perfect 90 degrees
 
     public CanYouDoItMartin() {
     	requires(Robot.driveSubsystem);

@@ -7,12 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Drive extends Command {
+public class MoveMast extends Command {
 
-    public Drive() {
+    public MoveMast() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.driveSubsystem);
-        //requires(Robot.gyroSubsystem);
+        requires(Robot.mastSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -21,9 +20,6 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//double pitch = Math.abs(Robot.gyroSubsystem.getPitch());
-    	//double speedScaleFactor = (45-pitch)/45;
-    	Robot.driveSubsystem.driveRobot(-Robot.m_oi.stick.getY() /* speedScaleFactor*/ , Robot.m_oi.stick.getX());
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -2,6 +2,7 @@ package org.usfirst.frc.team5119.robot.subsystems;
 
 import org.usfirst.frc.team5119.robot.commands.Drive;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -20,12 +21,27 @@ public class DriveSubsystem extends Subsystem {
 	protected static final WPI_TalonSRX backRight = new WPI_TalonSRX(2);
 	protected static final WPI_TalonSRX backLeft = new WPI_TalonSRX(3);
 	
-	protected static final SpeedControllerGroup rightMotors = new SpeedControllerGroup(frontRight, backRight);
-	protected static final SpeedControllerGroup leftMotors = new SpeedControllerGroup(frontLeft, backLeft);
+	protected static SpeedControllerGroup rightMotors;
+	protected static SpeedControllerGroup leftMotors;
 	
-	protected static final DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
+	protected static DifferentialDrive drive;
+	
+	public DriveSubsystem() {
+		/* quadrature */
+		frontRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0); // PIDLoop=0, timeoutMs=0
+		//frontRight.setInverted(true);
+		//backRight.setInverted(true);
+		
+		frontRight.configOpenloopRamp(.5, 1000);
+		frontLeft.configOpenloopRamp(.5, 1000);
+		backRight.configOpenloopRamp(.5, 1000);
+		backLeft.configOpenloopRamp(.5, 1000);
+		
+		rightMotors = new SpeedControllerGroup(frontRight, backRight);
+		leftMotors = new SpeedControllerGroup(frontLeft, backLeft);
+		drive = new DifferentialDrive(leftMotors, rightMotors);
 
-
+	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -34,9 +50,13 @@ public class DriveSubsystem extends Subsystem {
     
     public void driveRobot(double fwd, double turn) {
     	drive.arcadeDrive(fwd, turn, false);
+    	
     }
     public int getEncoderCount() {
-    	return 5;
+    	
+    	return frontRight.getSelectedSensorPosition(0);
+    	//return 5;
+    	
     }
 }
 
